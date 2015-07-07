@@ -41,6 +41,7 @@
       <clause id="clause2" name="ProductName">
         <inputExpression id="inputExpression2" name="Product">
           <itemDefinition href="#itemDefinition2"/>
+          <text>product</text>
         </inputExpression>
         <inputEntry id="inputEntry4">
           <text>RedCar</text>

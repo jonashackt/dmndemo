@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringApplicationConfiguration(classes = DmndemoApplication.class)
 public class DmndemoApplicationTests extends DmnDecisionTest{
 
-    private static final String STATE_2_SHIP_DMN = "states2ship.dmn";
+    private static final String STATE_2_SHIP_DMN = "rules/states2ship.dmn";
     
 	@Test
 	@DecisionResource(resource = STATE_2_SHIP_DMN)
