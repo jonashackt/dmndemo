@@ -26,6 +26,9 @@
 		<assertj.version>1.7.1</assertj.version>
 		<!-- TODO: use release version -->
 		<camunda-commons.version>1.1.0-SNAPSHOT</camunda-commons.version>
+
+		<build-plugin.jacoco.version>0.7.5.201505241946</build-plugin.jacoco.version>
+        <build-plugin.coveralls.version>3.1.0</build-plugin.coveralls.version>
 	</properties>
 
 	<dependencies>
@@ -87,6 +90,37 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${build-plugin.jacoco.version}</version>
+                <executions>
+                    <!-- Prepares the property pointing to the JaCoCo
+                    runtime agent which is passed as VM argument when Maven the Surefire plugin
+                    is executed. -->
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Ensures that the code coverage report for
+                    unit tests is created after unit tests have been run. -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${build-plugin.coveralls.version}</version>
+            </plugin>
 	</build>
 	
 	<repositories>
