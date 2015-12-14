@@ -1,100 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Definitions id="definitions" name="camunda" namespace="http://camunda.org/dmn" xmlns="http://www.omg.org/spec/DMN/20130901" xmlns:camunda="http://camunda.org/schema/1.0/dmn">
-  <ItemDefinition id="itemDefinition1" name="AdressStateType">
-    <typeDefinition>string</typeDefinition>
-  </ItemDefinition>
-  <ItemDefinition id="itemDefinition2" name="ProductNameType">
-    <typeDefinition>string</typeDefinition>
-    <allowedValue id="allowedValue1">
-      <text>BlueCar</text>
-    </allowedValue>
-    <allowedValue id="allowedValue2">
-      <text>RedCar</text>
-    </allowedValue>
-  </ItemDefinition>
-  <ItemDefinition id="itemDefinition3" name="CheckResultType">
-    <typeDefinition>string</typeDefinition>
-    <allowedValue id="allowedValue4">
-      <text>ok</text>
-    </allowedValue>
-    <allowedValue id="allowedValue5">
-      <text>notok</text>
-    </allowedValue>
-  </ItemDefinition>
-  <ItemDefinition id="itemDefinition4" name="ReasonType">
-    <typeDefinition>string</typeDefinition>
-  </ItemDefinition>
-  <Decision id="decision" name="State2Ship">
-    <DecisionTable id="decisionTable" isComplete="true" isConsistent="true" name="State2Ship">
-      <clause id="clause1" name="AdressState">
-        <inputExpression id="inputExpression1" name="State">
-          <itemDefinition href="#itemDefinition1"/>
-          <text>state</text>
-        </inputExpression>
-        <inputEntry id="inputEntry1">
-          <text>Afghanistan</text>
-        </inputEntry>
-        <inputEntry id="inputEntry2">
-          <text>Germany</text>
-        </inputEntry>
-      </clause>
-      <clause id="clause2" name="ProductName">
-        <inputExpression id="inputExpression2" name="Product">
-          <itemDefinition href="#itemDefinition2"/>
-          <text>product</text>
-        </inputExpression>
-        <inputEntry id="inputEntry4">
-          <text>RedCar</text>
-        </inputEntry>
-        <inputEntry id="inputEntry5">
-          <text>BlueCar</text>
-        </inputEntry>
-      </clause>
-      <clause camunda:name="result" id="clause3" name="Check Result">
-        <outputDefinition href="#itemDefinition3"/>
-        <outputEntry id="outputEntry1">
-          <text>notok</text>
-        </outputEntry>
-        <outputEntry id="outputEntry2">
-          <text>ok</text>
-        </outputEntry>
-      </clause>
-      <clause camunda:name="reason" id="clause4" name="Reason">
-        <outputDefinition href="#itemDefinition4"/>
-        <outputEntry id="outputEntry3">
-          <text>sorry, no shipment possible</text>
-        </outputEntry>
-        <outputEntry id="outputEntry4">
-          <text>yeah, have fun with your new car</text>
-        </outputEntry>
-        <outputEntry id="outputEntry6">
-          <text>We´re working hard, to make shipment of RedCars possible in Germany soon</text>
-        </outputEntry>
-      </clause>
-      <rule id="rule1">
-        <condition>inputEntry1</condition>
-        <condition>inputEntry4</condition>
-        <conclusion>outputEntry1</conclusion>
-        <conclusion>outputEntry3</conclusion>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="states2ship" name="States to ship to">
+    <decisionTable id="decisionTable">
+      <input id="input1" label="State">
+        <inputExpression id="inputExpression1" typeRef="string">        <text>state</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_0ga1zhg" label="Product">
+        <inputExpression id="LiteralExpression_10nhd96" typeRef="string">        <text>product</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Check Result" name="result" typeRef="string" />
+      <output id="OutputClause_0rsmsly" label="Reason" name="reason" typeRef="string" />
+      <rule id="row-422052177-18">
+        <inputEntry id="UnaryTests_0xrrvej">        <text><![CDATA["Afghanistan"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0pmpjvg">        <text><![CDATA["RedCar"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0p8hqsx">        <text><![CDATA["notok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_0qtwa4r">        <text><![CDATA["sorry, no shipment possible"]]></text>
+</outputEntry>
       </rule>
-      <rule id="rule2">
-        <condition>inputEntry1</condition>
-        <condition>inputEntry5</condition>
-        <conclusion>outputEntry2</conclusion>
-        <conclusion>outputEntry4</conclusion>
+      <rule id="row-422052177-19">
+        <inputEntry id="UnaryTests_0d243z1">        <text><![CDATA["Afghanistan"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1t9gfnk">        <text><![CDATA["BlueCar"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0ycqaas">        <text><![CDATA["ok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_05xb26h">        <text><![CDATA["yeah, have fun with your new car"]]></text>
+</outputEntry>
       </rule>
-      <rule id="rule3">
-        <condition>inputEntry2</condition>
-        <condition>inputEntry5</condition>
-        <conclusion>outputEntry2</conclusion>
-        <conclusion>outputEntry4</conclusion>
+      <rule id="row-422052177-20">
+        <inputEntry id="UnaryTests_0bygm5t">        <text><![CDATA["Germany"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_148g68d">        <text><![CDATA["BlueCar"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1is5x2k">        <text><![CDATA["ok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_1bdtdz5">        <text><![CDATA["yeah, have fun with your new car"]]></text>
+</outputEntry>
       </rule>
-      <rule id="rule4">
-        <condition>inputEntry2</condition>
-        <condition>inputEntry4</condition>
-        <conclusion>outputEntry1</conclusion>
-        <conclusion>outputEntry6</conclusion>
+      <rule id="row-422052177-21">
+        <inputEntry id="UnaryTests_0kdd0ks">        <text><![CDATA["Germany"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1hvem6k">        <text><![CDATA["RedCar"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1oc6iix">        <text><![CDATA["notok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_0k5387l">        <text><![CDATA["We´re working hard, to make shipment of RedCars possible in Germany soon"]]></text>
+</outputEntry>
       </rule>
-    </DecisionTable>
-  </Decision>
-</Definitions>
+    </decisionTable>
+  </decision>
+</definitions>
