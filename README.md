@@ -35,15 +35,17 @@ Note the correct import of your Class and also note the usage of "cellInput" - w
 
 **Warning for users of DMN-Modeler**: If you use the camunda [DMN-Modeler](https://camunda.org/dmn/tool/) (which is a good idea :) ): it removes the Script-Call at the moment, altough this Usage of Groovy is described in the [camunda docs](https://docs.camunda.org/manual/7.4/user-guide/dmn-engine/expressions-and-scripts/).
 
-You need to resist to use the camunda-Modeler feature to insert a "Script" into a table column - this will execute the script all the time the decisiontable is evaluated. For now, you have to open the dmn.xml in a texteditor and alter a rule yourself - e.g. like this:
+You need to resist to use the camunda-Modeler feature to insert a "Script" into a table column:
+
+![camunda_modeler_expression_script](https://github.com/jonashackt/dmndemo/blob/master/camunda_modeler_expression_script_screenshot.jpg)
+
+This will execute the script all the time the decisiontable is evaluated. For now, you have to open the dmn.xml in a texteditor and alter a rule yourself - e.g. like this:
 
 ```
 <inputEntry id="UnaryTests_0h6fb9j" expressionLanguage="Groovy">        <text><![CDATA[import de.jonashackt.dmndemo.PostalcodeChecker
 return PostalcodeChecker.isValidPostalcode(cellInput);]]></text>
 </inputEntry>
 ```
-
-![camunda_modeler_expression_script](https://github.com/jonashackt/dmndemo/blob/master/camunda_modeler_expression_script_screenshot.jpg)
 
 Now if you run a Test, which fill´s the VariableMap correctly, it should evaluate your Rule and call the Java-Method with your Custom logic:
 
