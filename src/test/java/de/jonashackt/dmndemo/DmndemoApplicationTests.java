@@ -1,9 +1,8 @@
 package de.jonashackt.dmndemo;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.camunda.bpm.dmn.engine.DmnDecision;
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
@@ -41,12 +40,33 @@ public class DmndemoApplicationTests {
     
 	@Test
 	public void shouldEvaluateShipment() {		
-	    VariableMap variables = Variables
+	    // Should be ok
+		VariableMap variables = Variables
 	            .putValue("state", "Afghanistan")
-	            .putValue("product", "RedCar");
+	            .putValue("product", "RedCar")
+	            .putValue("zip", "99425");
 
 	    DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(states2ship, variables);
+	    assertNotNull(result.getSingleResult());
 	    assertEquals("notok", result.getSingleResult().getEntryMap().get("result"));
 	    assertEquals("sorry, no shipment possible", result.getSingleResult().getEntryMap().get("reason"));
+	    
+	    // Should be wrong
+	    variables = Variables
+	            .putValue("state", "Afghanistan")
+	            .putValue("product", "RedCar")
+	            .putValue("zip", "100");
+
+	    result = dmnEngine.evaluateDecisionTable(states2ship, variables);
+	    assertNull(result.getSingleResult());
+	    
+	    // Should be wrong
+	    variables = Variables
+	            .putValue("state", "Afghanistan")
+	            .putValue("product", "RedCar")
+	            .putValue("zip", "100");
+
+	    result = dmnEngine.evaluateDecisionTable(states2ship, variables);
+	    assertNull(result.getSingleResult());
 	}
 }
