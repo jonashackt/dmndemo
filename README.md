@@ -22,6 +22,8 @@ For that you need to add Groovy to your Classpath (I omit the version here, beca
 </dependency>
 ```
 
+In your Decisiontable you need to define a simple column with a name (in this example it´s "zip") you´ll use later when calling the DMN-Engine and a appropriate Datatype - e.g. String.
+
 Then add your Custom-Logic within a Java-Class´ static method (that returns a boolean) to the Project,
 import the Class in Groovy and call the Method - e.g. like that:
 ```
@@ -29,9 +31,34 @@ import de.jonashackt.dmndemo.PostalcodeChecker
 return PostalcodeChecker.isValidPostalcode(cellInput);
 ```
 
-Note the correct import of your Class and also note the usage of "cellInput" - which contains the Value to check, passed into the DMN-Engine along with the other Variables. For Example-Code, see [DmndemoApplicationTests.java](https://github.com/jonashackt/dmndemo/blob/master/src/test/java/de/jonashackt/dmndemo/DmndemoApplicationTests.java).
+Note the correct import of your Class and also note the usage of "cellInput" - which contains the Value to check, passed into the DMN-Engine along with the other Variables. 
 
 **Warning for users of DMN-Modeler**: If you use the camunda [DMN-Modeler](https://camunda.org/dmn/tool/) (which is a good idea :) ): it removes the Script-Call at the moment, altough this Usage of Groovy is described in the [camunda docs](https://docs.camunda.org/manual/7.4/user-guide/dmn-engine/expressions-and-scripts/).
+
+You need to resist to use the camunda-Modeler feature to insert a "Script" into a table column - this will execute the script all the time the decisiontable is evaluated. For now, you have to open the dmn.xml in a texteditor and alter a rule yourself - e.g. like this:
+
+```
+<inputEntry id="UnaryTests_0h6fb9j" expressionLanguage="Groovy">        <text><![CDATA[import de.jonashackt.dmndemo.PostalcodeChecker
+return PostalcodeChecker.isValidPostalcode(cellInput);]]></text>
+</inputEntry>
+```
+
+![camunda_modeler_expression_script](https://github.com/jonashackt/dmndemo/blob/master/camunda_modeler_expression_script_screenshot.jpg)
+
+Now if you run a Test, which fill´s the VariableMap correctly, it should evaluate your Rule and call the Java-Method with your Custom logic:
+
+```
+// Should be ok
+VariableMap variables = Variables
+        .putValue("state", "Afghanistan")
+        .putValue("product", "RedCar")
+        .putValue("zip", "99425");
+
+DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(states2ship, variables);
+assertNotNull(result.getSingleResult());
+assertEquals("notok", result.getSingleResult().getEntryMap().get("result"));
+assertEquals("sorry, no shipment possible", result.getSingleResult().getEntryMap().get("reason"));
+```
 
 To see all this in Action, simply run [DmndemoApplicationTests.java](https://github.com/jonashackt/dmndemo/blob/master/src/test/java/de/jonashackt/dmndemo/DmndemoApplicationTests.java).
 
