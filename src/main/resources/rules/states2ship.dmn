@@ -17,7 +17,7 @@
       <output id="output1" label="Check Result" name="result" typeRef="string" />
       <output id="OutputClause_0rsmsly" label="Reason" name="reason" typeRef="string" />
       <rule id="row-422052177-18">
-        <inputEntry id="UnaryTests_0xrrvej">        <text><![CDATA["Afghanistan"]]></text>
+        <inputEntry id="UnaryTests_0xrrvej">        <text><![CDATA["France"]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_0pmpjvg">        <text><![CDATA["RedCar"]]></text>
 </inputEntry>
@@ -30,7 +30,7 @@ return PostalcodeChecker.isValidPostalcode(cellInput);]]></text>
 </outputEntry>
       </rule>
       <rule id="row-422052177-19">
-        <inputEntry id="UnaryTests_0d243z1">        <text><![CDATA["Afghanistan"]]></text>
+        <inputEntry id="UnaryTests_0d243z1">        <text><![CDATA["France"]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_1t9gfnk">        <text><![CDATA["BlueCar"]]></text>
 </inputEntry>

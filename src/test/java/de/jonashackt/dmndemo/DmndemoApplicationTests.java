@@ -42,7 +42,7 @@ public class DmndemoApplicationTests {
 	public void shouldEvaluateShipment() {		
 	    // Should be ok
 		VariableMap variables = Variables
-	            .putValue("state", "Afghanistan")
+	            .putValue("state", "France")
 	            .putValue("product", "RedCar")
 	            .putValue("zip", "99425");
 
@@ -53,7 +53,7 @@ public class DmndemoApplicationTests {
 	    
 	    // Should be wrong
 	    variables = Variables
-	            .putValue("state", "Afghanistan")
+	            .putValue("state", "France")
 	            .putValue("product", "RedCar")
 	            .putValue("zip", "100");
 
@@ -62,7 +62,7 @@ public class DmndemoApplicationTests {
 	    
 	    // Should be wrong
 	    variables = Variables
-	            .putValue("state", "Afghanistan")
+	            .putValue("state", "France")
 	            .putValue("product", "RedCar")
 	            .putValue("zip", "100");
 
